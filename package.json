@@ -1,0 +1,66 @@
+{
+  "name": "image-studio-local",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "electron-main.js",
+  "productName": "造像所",
+  "scripts": {
+    "dev": "concurrently \"vite\" \"node --watch server.js\"",
+    "build": "vite build",
+    "start": "node server.js",
+    "desktop": "npm run build && electron .",
+    "pack:win": "npm run build && powershell -ExecutionPolicy Bypass -File scripts/build-windows.ps1",
+    "pack:mac": "npm run build && electron-builder --mac",
+    "pack:all": "npm run build && electron-builder --win --mac"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "concurrently": "latest",
+    "express": "latest",
+    "multer": "latest",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "electron": "latest",
+    "electron-builder": "latest"
+  },
+  "build": {
+    "appId": "com.localimagelab.zaoxiang",
+    "productName": "造像所",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "server.js",
+      "electron-main.js",
+      "package.json",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] }
+      ],
+      "artifactName": "ImageStudio-${version}-Windows-${arch}-Installer.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "造像所"
+    },
+    "mac": {
+      "target": [
+        { "target": "dmg", "arch": ["x64", "arm64"] },
+        { "target": "zip", "arch": ["x64", "arm64"] }
+      ],
+      "category": "public.app-category.graphics-design",
+      "artifactName": "ImageStudio-${version}-macOS-${arch}.${ext}"
+    }
+  }
+}

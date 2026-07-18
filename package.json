@@ -18,10 +18,11 @@
     "@vitejs/plugin-react": "latest",
     "concurrently": "latest",
     "express": "latest",
+    "jsonrepair": "^3.15.0",
     "multer": "latest",
-    "vite": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "vite": "latest"
   },
   "devDependencies": {
     "electron": "latest",
@@ -38,12 +39,18 @@
       "dist/**/*",
       "server.js",
       "electron-main.js",
+      "electron-preload.cjs",
       "package.json",
       "node_modules/**/*"
     ],
     "win": {
       "target": [
-        { "target": "nsis", "arch": ["x64"] }
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
       ],
       "artifactName": "ImageStudio-${version}-Windows-${arch}-Installer.${ext}"
     },
@@ -56,8 +63,20 @@
     },
     "mac": {
       "target": [
-        { "target": "dmg", "arch": ["x64", "arm64"] },
-        { "target": "zip", "arch": ["x64", "arm64"] }
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
       ],
       "category": "public.app-category.graphics-design",
       "artifactName": "ImageStudio-${version}-macOS-${arch}.${ext}"
